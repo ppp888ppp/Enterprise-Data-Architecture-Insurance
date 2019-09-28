@@ -42,8 +42,24 @@ public class main
 		{
 			Connection con = getConnection();
 			String sql = "INSERT INTO PRODUCT (PRODUCT_NAME, DESCRIPTION) VALUES ('A', 'HEALTH')"; 
+			PreparedStatement inserted = con.prepareStatement(sql);
+			inserted.executeUpdate(); 
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+	
+	public static void getQuote() throws Exception
+	{
+		try
+		{
+			Connection con = getConnection(); 
+			String sql = "SELECT PRODUCT_NAME, DESCRIPTION FROM PRODUCT"; 
+			
 			/*
-				Here, you can put any sql quries getting inquries based on the EER design provided with pdf file.
+				Here, you can put any **sql** quries getting inquries based on the EER design provided with pdf file.
 				For example,
 				
 				1.Print all the information from invoice table where the due date is august 10th. 
@@ -61,22 +77,8 @@ public class main
 					FROM C.CUSTOMER, I.INVOICE, P.PRODUCT.NAME
 					WHERE C.CUSTOMER_ZIP = 07301
 			*/
-			PreparedStatement inserted = con.prepareStatement(sql);
-			inserted.executeUpdate(); 
-
-		}
-		catch(Exception e)
-		{
-			System.out.println(e);
-		}
-	}
 	
-	public static void getQuote() throws Exception
-	{
-		try
-		{
-			Connection con = getConnection(); 
-			PreparedStatement statement = con.prepareStatement("SELECT PRODUCT_NAME, DESCRIPTION FROM PRODUCT");
+			PreparedStatement statement = con.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(); 
 		
 			while(result.next())
